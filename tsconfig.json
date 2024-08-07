@@ -1,0 +1,14 @@
+{
+	"extends": "astro/tsconfigs/strict",
+	"exclude": ["node_modules"],
+	"include": ["src/**/*.ts", "src/**/*.svelte", "src/**/*.astro"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@components/*": ["src/components/*"],
+			"@lib/*": ["src/lib/*"],
+			"@layouts/*": ["src/layouts/*"],
+			"@styles/*": ["src/styles/*"]
+		}
+	}
+}

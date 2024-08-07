@@ -1,0 +1,71 @@
+---
+import { getEntry } from 'astro:content';
+import { navigationItems } from '@lib/data/nav-items';
+const contactEntry = await getEntry('contact', 'contact');
+const { contactMethods, socialLinks } = contactEntry.data;
+---
+
+<footer class="bg-container py-12 text-text">
+	<div class="mx-auto w-full max-w-screen-xl p-4 md:p-6">
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+			<!-- Contact Info -->
+			<div>
+				<h3 class="mb-4 text-xl font-semibold text-accent">Contact</h3>
+				<ul class="space-y-3">
+					{
+						contactMethods.map((method) => (
+							<li>
+								<a
+									href={method.link}
+									class="flex items-center transition-colors duration-300 hover:text-accent">
+									{method.title === 'Phone' && (
+										<i class="fas fa-phone-alt mr-2" aria-hidden="true" />
+									)}
+									{method.title === 'Email' && (
+										<i class="fas fa-envelope mr-2" aria-hidden="true" />
+									)}
+									{method.title === 'WhatsApp' && (
+										<i class="fab fa-whatsapp mr-2" aria-hidden="true" />
+									)}
+									<span>{method.value}</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<!-- Social Links -->
+			<div>
+				<h3 class="mb-4 text-xl font-semibold text-accent">Connect</h3>
+				<div class="flex space-x-4">
+					{
+						socialLinks.map((link) => (
+							<a
+								href={link.url}
+								target="_blank"
+								aria-label={`Visit ${link.platform} profile`}
+								class="text-2xl transition-colors duration-300 hover:text-accent">
+								<i class={link.icon} aria-hidden="true" />
+							</a>
+						))
+					}
+				</div>
+			</div>
+
+			<!-- Quick Links -->
+			<div>
+				<h3 class="mb-4 text-xl font-semibold text-accent">Quick Links</h3>
+				<ul class="space-y-2">
+					{navigationItems.map((item) => (
+						<li>
+							<a href={item.href} class="transition-colors duration-300 hover:text-accent">
+								{item.name}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>

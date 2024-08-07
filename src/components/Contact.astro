@@ -1,0 +1,147 @@
+---
+import { getEntry } from 'astro:content';
+
+const contactEntry = await getEntry('contact', 'contact');
+const { title, description, socialMediaTitle, contactMethods, socialLinks } = contactEntry.data;
+---
+
+<section id="contact" class="bg-bg py-24">
+	<div class="mx-auto w-full max-w-screen-xl p-4 md:p-6">
+		<h2 class="contact-title mb-8 text-center text-5xl font-bold text-accent">
+			{title}
+		</h2>
+		<p class="contact-description mx-auto mb-16 max-w-2xl text-center text-lg text-text">
+			{description}
+		</p>
+
+		<div class="contact-methods mb-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+			{
+				contactMethods.map((method) => (
+					<div class="contact-method flex flex-col justify-between rounded-lg bg-container p-6">
+						<div class="flex flex-col gap-4">
+							<h3 class="mb-2 text-2xl font-semibold text-accent">{method.title}</h3>
+							<p class="mb-4 text-text">{method.value}</p>
+							<p class="text-text">{method.description}</p>
+							<a
+								href={method.link}
+								class="contact-button mt-auto inline-block w-3/6 min-w-44 rounded-full bg-accent px-6 py-2 text-center text-bg transition duration-300 hover:bg-secondary hover:text-text">
+								{method.action}
+							</a>
+						</div>
+					</div>
+				))
+			}
+		</div>
+
+		<div class="social-links-container">
+			<h3 class="mb-6 text-center text-2xl font-semibold text-accent">
+				{socialMediaTitle}
+			</h3>
+			<div class="flex justify-center gap-6">
+				{
+					socialLinks.map((link) => (
+						<a
+							href={link.url}
+							target="_blank"
+							aria-label={`Visit my ${link.platform} profile`}
+							class="social-link text-3xl text-text transition-colors duration-300 hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent">
+							<i class={link.icon} aria-hidden="true" />
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact-method {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+		opacity: 0;
+	}
+	.social-link {
+		display: inline-block;
+		padding: 10px;
+	}
+
+	.contact-title,
+	.social-link,
+	.contact-description {
+		opacity: 0;
+	}
+</style>
+
+<script>
+	import { animate, inView } from 'motion';
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const contactTitle = document.querySelector('.contact-title') as HTMLElement;
+		const contactDescription = document.querySelector('.contact-description') as HTMLElement;
+		const contactMethods = document.querySelectorAll('.contact-method') as NodeListOf<HTMLElement>;
+		const socialLinks = document.querySelectorAll('.social-link') as NodeListOf<HTMLElement>;
+
+		if (contactTitle) {
+			inView(
+				contactTitle,
+				() => {
+					animate(
+						contactTitle,
+						{ opacity: [0, 1], y: [-30, 0] },
+						{ duration: 0.8, easing: 'ease-out' }
+					);
+				},
+				{ amount: 0.2 }
+			);
+		}
+
+		if (contactDescription) {
+			inView(
+				contactDescription,
+				() => {
+					animate(
+						contactDescription,
+						{ opacity: [0, 1], y: [-20, 0] },
+						{ duration: 0.8, delay: 0.2, easing: 'ease-out' }
+					);
+				},
+				{ amount: 0.2 }
+			);
+		}
+
+		if (contactMethods.length > 0) {
+			contactMethods.forEach((method, index) => {
+				inView(
+					method,
+					() => {
+						animate(
+							method,
+							{ opacity: [0, 1], y: [30, 0] },
+							{ duration: 0.6, delay: index * 0.2, easing: 'ease-out' }
+						);
+					},
+					{ amount: 0.3 }
+				);
+			});
+		}
+
+		if (socialLinks.length > 0) {
+			socialLinks.forEach((link, index) => {
+				inView(
+					link,
+					() => {
+						animate(
+							link,
+							{ opacity: [0, 1], y: [20, 0] },
+							{ duration: 0.6, delay: index * 0.1, easing: 'ease-out' }
+						);
+					},
+					{ amount: 0.4 }
+				);
+			});
+		}
+	});
+	``;
+</script>

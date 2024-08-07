@@ -1,0 +1,130 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '@layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import Breadcrumbs from '@components/projects/Breadcrumbs.astro';
+import ProjectImage from '@components/projects/ProjectImage.astro';
+import Section from '@components/projects/Section.astro';
+import SideContainer from '@components/projects/SideContainer.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.slug }
+	}));
+}
+
+const { slug } = Astro.params;
+const projects = await getCollection('projects');
+const project = projects.find((p) => p.slug === slug);
+
+if (!project) {
+	throw new Error(`Project with slug '${slug}' not found`);
+}
+
+const pageDescription = project.data.description || 'Explore my work as an AI & Fullstack Developer';
+---
+<Layout title={`${project.data.title} - Mohammed Malloul - AI & Fullstack Developer`} description={pageDescription}>
+	<section class="mx-auto mt-24 w-full max-w-screen-xl space-y-8 p-4 md:p-6">
+		<div class="mb-4 flex items-center justify-between">
+			<a
+				id="back-button"
+				href={Astro.url.pathname === '/projects' ? 'javascript:history.back()' : '/'}
+				class="inline-block rounded-full bg-accent px-4 py-2 font-bold text-bg transition-colors duration-300 hover:bg-secondary">
+				<svg
+					class="mr-2 inline-block h-4 w-4"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7 7-7m9 14l-7-7 7-7"
+					></path>
+				</svg>
+				Back
+			</a>
+		</div>
+
+		<ProjectImage image={project.data.image} title={project.data.title} class="project-image" />
+
+		<Breadcrumbs title={project.data.title} />
+
+		<h1 class="section-title mb-6 text-3xl font-extrabold text-accent">
+			{project.data.title}
+		</h1>
+
+		<div class="flex flex-col gap-8 lg:flex-row">
+			<div class="flex flex-1 flex-col gap-8">
+				{
+					project.data.problemStatement && project.data.solution && project.data.description && (
+						<Section title="Project Overview" class="section-content">
+							<p class="text-base leading-relaxed text-text">{project.data.description}</p>
+							<p class="mt-4 text-base leading-relaxed text-text">
+								{project.data.problemStatement}
+							</p>
+							<p class="mt-4 text-base leading-relaxed text-text">{project.data.solution}</p>
+						</Section>
+					)
+				}
+
+				{
+					project.data.features && (
+						<Section title="Features" class="section-content">
+							<ul class="list-inside list-disc text-base leading-relaxed text-text">
+								{project.data.features.map((feature: string) => (
+									<li>{feature}</li>
+								))}
+							</ul>
+						</Section>
+					)
+				}
+
+				{
+					project.data.outcome && (
+						<Section title="Outcome" class="section-content">
+							<p class="text-base leading-relaxed text-text">{project.data.outcome}</p>
+						</Section>
+					)
+				}
+
+				{
+					project.data.galleryImages && (
+						<Section title="Project Gallery" class="section-content">
+							<div class="grid auto-cols-auto gap-4">
+								{project.data.galleryImages.map((image) => (
+								<Image
+										src={image}
+										alt="Gallery Image"
+										class="gallery-image max-h-96 h-auto w-full object-contain rounded-lg shadow-lg transition-transform duration-500 hover:scale-105"
+									/>
+								))}
+							</div>
+						</Section>
+					)
+				}
+
+				{
+					project.data.testimonial && (
+						<Section title="Client Testimonial" class="section-content">
+							<blockquote class="text-base leading-relaxed text-text">
+								{project.data.testimonial.quote}
+								<footer class="mt-4 text-gray-400">- {project.data.testimonial.author}</footer>
+							</blockquote>
+						</Section>
+					)
+				}
+			</div>
+
+			<div class="w-full lg:w-1/3">
+				<SideContainer
+					technologies={project.data.technologies}
+					links={{
+						github: project.data.github,
+						gitlab: project.data.gitlab,
+						website: project.data.website
+					}}
+				/>
+			</div>
+		</div>
+	</section>
+</Layout>

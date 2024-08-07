@@ -1,0 +1,15 @@
+---
+import { Image } from 'astro:assets';
+const { image, title } = Astro.props;
+---
+
+<div class="relative mb-6 project-image">
+	<Image
+		src={image}
+		alt={title}
+		class="In mb-4 h-72 w-full rounded-lg object-cover shadow-lg transition-transform duration-500 hover:scale-105"
+	/>
+	<div
+		class="absolute inset-0 rounded-lg bg-gradient-to-t from-container via-transparent to-transparent opacity-75">
+	</div>
+</div>

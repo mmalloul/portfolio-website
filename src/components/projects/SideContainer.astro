@@ -1,0 +1,77 @@
+---
+interface SideContainerProps {
+	technologies?: string[];
+	links?: {
+		github?: string;
+		gitlab?: string;
+		website?: string;
+	};
+}
+
+const { technologies, links }: SideContainerProps = Astro.props;
+---
+
+<div class="space-y-8 rounded-lg bg-container p-6 shadow-lg section-content">
+	{
+		technologies && (
+			<div>
+				<h2 class="mb-4 text-xl font-bold text-accent">Technologies Used</h2>
+				<div class="flex flex-wrap gap-2">
+					{technologies.map((tech) => (
+						<span class="rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-bg">
+							{tech}
+						</span>
+					))}
+				</div>
+			</div>
+		)
+	}
+
+	{
+		(links?.github || links?.gitlab || links?.website) && (
+			<div>
+				<h2 class="mb-4 text-xl font-bold text-accent">Related Links</h2>
+				<ul class="space-y-2">
+					{links.github && (
+						<li>
+							<a
+								href={links.github}
+								class="flex items-center text-accent hover:underline"
+								target="_blank">
+								<i class="fab fa-github mr-2" /> GitHub
+							</a>
+						</li>
+					)}
+					{links.gitlab && (
+						<li>
+							<a
+								href={links.gitlab}
+								class="flex items-center text-accent hover:underline"
+								target="_blank">
+								<i class="fab fa-gitlab mr-2" /> GitLab
+							</a>
+						</li>
+					)}
+					{links.website && (
+						<li>
+							<a
+								href={links.website}
+								class="flex items-center text-accent hover:underline"
+								target="_blank">
+								<i class="fas fa-external-link-alt mr-2" /> Website
+							</a>
+						</li>
+					)}
+				</ul>
+			</div>
+		)
+	}
+</div>
+
+<style>
+	.fa-github,
+	.fa-gitlab,
+	.fa-external-link-alt {
+		font-size: 1.25rem;
+	}
+</style>

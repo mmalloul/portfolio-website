@@ -1,0 +1,131 @@
+---
+import { navigationItems } from '@lib/data/nav-items';
+---
+
+<header class="fixed top-0 z-50 w-full bg-bg transition-all duration-300 ease-in-out" id="header">
+	<div class="mx-auto flex max-w-screen-xl items-center justify-between p-4 md:p-6">
+		<a
+			href="/"
+			class="text-2xl font-bold text-accent transition-colors duration-300 hover:text-secondary">
+			MM
+		</a>
+		<button
+			class="text-text focus:outline-none md:hidden"
+			id="menu-toggle"
+			aria-label="Toggle menu"
+			aria-expanded="false">
+			<svg
+				class="h-6 w-6"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+				xmlns="http://www.w3.org/2000/svg">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M4 6h16M4 12h16m-7 6h7"></path>
+			</svg>
+		</button>
+
+		<nav
+			class="absolute left-0 right-0 top-full max-h-0 overflow-hidden bg-bg opacity-0 transition-all duration-300 ease-in-out md:static md:max-h-full md:opacity-100"
+			id="menu">
+			<ul class="flex flex-col space-y-4 p-4 md:flex-row md:space-x-6 md:space-y-0 md:p-0">
+				{
+					navigationItems.map((item) => (
+						<li>
+							<a
+								href={item.href}
+								class="block text-text transition-colors duration-300 hover:text-accent">
+								{item.name}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<style>
+	#menu-toggle[aria-expanded='true'] + #menu {
+		max-height: 100vh;
+		opacity: 1;
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const header = document.getElementById('header') as HTMLElement | null;
+		const menuToggle = document.getElementById('menu-toggle') as HTMLButtonElement | null;
+		const menu = document.getElementById('menu') as HTMLElement | null;
+		const menuItems = menu?.querySelectorAll('a') as NodeListOf<HTMLAnchorElement>;
+
+		const closeMenu = () => {
+			if (menuToggle && menu) {
+				menuToggle.setAttribute('aria-expanded', 'false');
+				menu.style.maxHeight = '0';
+				menu.style.opacity = '0';
+			}
+		};
+
+		if (header && menuToggle && menu) {
+			window.addEventListener('scroll', () => {
+				header.classList.toggle('shadow-md', window.scrollY > 50);
+			});
+
+			menuToggle.addEventListener('click', () => {
+				const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+				menuToggle.setAttribute('aria-expanded', (!expanded).toString());
+				if (expanded) {
+					closeMenu();
+				} else {
+					menu.style.maxHeight = menu.scrollHeight + 'px';
+					menu.style.opacity = '1';
+				}
+			});
+
+			const handleClickOutside = (event: Event) => {
+				if (window.innerWidth < 768) {
+					if (
+						menu &&
+						!menu.contains(event.target as Node) &&
+						!menuToggle.contains(event.target as Node)
+					) {
+						closeMenu();
+					}
+				}
+			};
+
+			const handleMenuItemClick = () => {
+				if (window.innerWidth < 768) {
+					closeMenu();
+				}
+			};
+
+			document.addEventListener('click', handleClickOutside);
+
+			if (menuItems) {
+				menuItems.forEach((item) => {
+					item.addEventListener('click', handleMenuItemClick);
+				});
+			}
+
+			const mediaQuery = window.matchMedia('(min-width: 768px)');
+			const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
+				if (e.matches) {
+					menuToggle.setAttribute('aria-expanded', 'false');
+					menu.style.maxHeight = 'none';
+					menu.style.opacity = '1';
+				} else {
+					menu.style.maxHeight = '0';
+					menu.style.opacity = '0';
+				}
+			};
+
+			mediaQuery.addEventListener('change', handleMediaChange);
+			handleMediaChange(mediaQuery);
+		}
+	});
+</script>

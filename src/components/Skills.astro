@@ -1,0 +1,88 @@
+---
+import { getEntry } from 'astro:content';
+
+const skillsEntry = await getEntry('skills', 'skills-list');
+const { title, skills } = skillsEntry.data;
+---
+
+<section id="skills" class="overflow-hidden bg-container py-16">
+	<div class="mx-auto w-full max-w-screen-xl p-4 md:p-6">
+		<h2 class="skills-title mb-12 text-center text-4xl font-bold text-accent">{title}</h2>
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+			{
+				skills.map((skill) => (
+					<div class="skill-card overflow-hidden rounded-lg bg-container shadow-lg">
+						<div class="card-content p-6">
+							<h3 class="mb-2 text-xl font-semibold text-accent">{skill.title}</h3>
+							<p class="text-text">{skill.description}</p>
+						</div>
+						<div class="card-overlay absolute inset-0 bg-accent opacity-0" />
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.skill-card {
+		position: relative;
+		transform-style: preserve-3d;
+		transform: perspective(1000px);
+	}
+	.card-content {
+		position: relative;
+		z-index: 1;
+		backface-visibility: hidden;
+	}
+	.card-overlay {
+		transform: translateZ(-1px) scale(1.2);
+	}
+</style>
+
+<script>
+	import { animate, inView } from 'motion';
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const skillsTitle = document.querySelector('.skills-title') as HTMLElement;
+		const skillCards = document.querySelectorAll('.skill-card') as NodeListOf<HTMLElement>;
+
+		if (skillsTitle) {
+			inView(skillsTitle, () => {
+				animate(
+					skillsTitle,
+					{ opacity: [0, 1], y: [-30, 0] },
+					{ duration: 0.8, easing: 'ease-out' }
+				);
+			});
+		}
+
+		if (skillCards.length > 0) {
+			skillCards.forEach((card, index) => {
+				inView(card, () => {
+					animate(
+						card,
+						{ opacity: [0, 1], y: [30, 0] },
+						{ duration: 0.8, delay: index * 0.2, easing: 'ease-out' }
+					);
+				});
+			});
+		}
+
+		skillCards.forEach((card) => {
+			const overlay = card.querySelector('.card-overlay') as HTMLElement;
+			card.addEventListener('mouseenter', () => {
+				animate(card, { scale: [1, 1.05] }, { duration: 0.3 });
+				if (overlay) {
+					animate(overlay, { opacity: [0, 0.2] }, { duration: 0.3 });
+				}
+			});
+			card.addEventListener('mouseleave', () => {
+				animate(card, { scale: [1.05, 1] }, { duration: 0.3 });
+				if (overlay) {
+					animate(overlay, { opacity: [0.2, 0] }, { duration: 0.3 });
+				}
+			});
+		});
+	});
+</script>

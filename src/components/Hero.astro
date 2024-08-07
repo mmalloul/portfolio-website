@@ -1,0 +1,71 @@
+---
+const name: string = 'Mohammed Malloul';
+const subtitle: string = 'AI & Fullstack Developer';
+const buttonText: string = 'Explore My Work';
+---
+
+<section class="relative flex h-screen items-center justify-center">
+	<canvas class="absolute inset-0 h-full w-full"></canvas>
+	<div class="relative z-10 text-center">
+		<h1
+			class="mb-4 text-4xl font-bold text-accent md:text-6xl"
+			style="opacity: 0; transform: translateY(-50px);">
+			{name}
+		</h1>
+		<p class="mb-8 text-xl text-text md:text-2xl" style="opacity: 0; transform: translateY(-30px);">
+			{subtitle}
+		</p>
+		<a
+			href="#projects"
+			class="rounded-full bg-accent px-8 py-3 text-lg font-semibold text-bg transition-colors duration-300 hover:bg-secondary"
+			style="opacity: 0; transform: translateY(-20px);">
+			{buttonText}
+		</a>
+	</div>
+</section>
+
+<script>
+	import { animate } from 'motion';
+
+	window.onload = function () {
+		const rootStyles = getComputedStyle(document.documentElement);
+		const accent = rootStyles.getPropertyValue('--color-accent').trim();
+		const secondary = rootStyles.getPropertyValue('--color-secondary').trim();
+
+		Particles.init({
+			selector: 'canvas',
+			color: [accent, secondary],
+			connectParticles: true,
+			responsive: [
+				{
+					breakpoint: 768,
+					options: {
+						maxParticles: 60
+					}
+				},
+				{
+					breakpoint: 425,
+					options: {
+						maxParticles: 40
+					}
+				}
+			]
+		});
+
+		animate(
+			'.text-center h1',
+			{ opacity: [0, 1], y: [-50, 0] },
+			{ duration: 0.5, easing: 'ease-out' }
+		);
+		animate(
+			'.text-center p',
+			{ opacity: [0, 1], y: [-30, 0] },
+			{ duration: 0.5, delay: 0.3, easing: 'ease-out' }
+		);
+		animate(
+			'.text-center a',
+			{ opacity: [0, 1], y: [-20, 0] },
+			{ duration: 0.5, delay: 0.6, easing: 'ease-out' }
+		);
+	};
+</script>

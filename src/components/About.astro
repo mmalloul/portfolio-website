@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+
+const aboutEntry = await getEntry('about', 'me');
+const { Content } = await aboutEntry.render();
+---
+
+<section id="about" class="overflow-hidden bg-gradient-to-b from-bg to-container py-24">
+	<div class="mx-auto w-full max-w-screen-xl p-4 md:p-6">
+		<h2 class="about-title mb-16 text-center text-5xl font-bold text-accent">About Me</h2>
+		<div class="about-card flex flex-col items-center justify-center gap-12 lg:flex-row">
+			<div class="image-container relative h-48 w-48 md:h-72 md:w-72">
+				<div class="absolute inset-0 rotate-12 transform rounded-full bg-accent opacity-20"></div>
+				<Image
+					src={aboutEntry.data.image}
+					alt={aboutEntry.data.name}
+					class="relative z-10 h-full w-full rounded-full object-cover shadow-xl"
+				/>
+			</div>
+			<div class="content-container max-w-2xl text-center lg:text-left">
+				<h3 class="mb-4 text-3xl font-bold text-accent">{aboutEntry.data.name}</h3>
+				<h4 class="mb-6 text-xl text-secondary">{aboutEntry.data.role}</h4>
+				<div class="prose prose-invert">
+					<Content />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<style>
+	.about-title,
+	.image-container,
+	.content-container > * {
+		opacity: 0;
+	}
+
+	.image-container::after {
+		content: '';
+		position: absolute;
+		top: -10px;
+		left: -10px;
+		right: -10px;
+		bottom: -10px;
+		border: 2px solid var(--color-accent);
+		border-radius: 50%;
+		opacity: 0.5;
+		z-index: 5;
+	}
+</style>
+
+<script>
+	import { animate, inView } from 'motion';
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const aboutTitle = document.querySelector('.about-title') as HTMLElement;
+		const imageContainer = document.querySelector('.image-container') as HTMLElement;
+		const contentItems = document.querySelectorAll(
+			'.content-container > *'
+		) as NodeListOf<HTMLElement>;
+
+		if (aboutTitle) {
+			inView(
+				aboutTitle,
+				() => {
+					animate(
+						aboutTitle,
+						{ opacity: [0, 1], y: [-50, 0] },
+						{ duration: 1, easing: 'ease-in-out' }
+					);
+				},
+				{ amount: 0.2 }
+			);
+		}
+
+		if (imageContainer) {
+			inView(
+				imageContainer,
+				() => {
+					animate(
+						imageContainer,
+						{ opacity: [0, 1], x: [-100, 0], rotate: [-12, 0] },
+						{ duration: 1, easing: 'ease-in-out' }
+					);
+				},
+				{ amount: 0.4 }
+			);
+		}
+
+		if (contentItems.length > 0) {
+			contentItems.forEach((item, index) => {
+				inView(
+					item,
+					() => {
+						animate(
+							item,
+							{ opacity: [0, 1], y: [50, 0] },
+							{ duration: 1, easing: 'ease-in-out', delay: index * 0.2 }
+						);
+					},
+					{ amount: 0.3 }
+				);
+			});
+		}
+	});
+</script>
