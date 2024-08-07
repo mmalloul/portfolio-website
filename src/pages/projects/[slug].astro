@@ -22,9 +22,13 @@ if (!project) {
 	throw new Error(`Project with slug '${slug}' not found`);
 }
 
-const pageDescription = project.data.description || 'Explore my work as an AI & Fullstack Developer';
+const pageDescription =
+	project.data.description || 'Explore my work as an AI & Fullstack Developer';
 ---
-<Layout title={`${project.data.title} - Mohammed Malloul - AI & Fullstack Developer`} description={pageDescription}>
+
+<Layout
+	title={`${project.data.title} - Mohammed Malloul - AI & Fullstack Developer`}
+	description={pageDescription}>
 	<section class="mx-auto mt-24 w-full max-w-screen-xl space-y-8 p-4 md:p-6">
 		<div class="mb-4 flex items-center justify-between">
 			<a
@@ -92,10 +96,10 @@ const pageDescription = project.data.description || 'Explore my work as an AI & 
 						<Section title="Project Gallery" class="section-content">
 							<div class="grid auto-cols-auto gap-4">
 								{project.data.galleryImages.map((image) => (
-								<Image
+									<Image
 										src={image}
 										alt="Gallery Image"
-										class="gallery-image max-h-96 h-auto w-full object-contain rounded-lg shadow-lg transition-transform duration-500 hover:scale-105"
+										class="gallery-image h-auto max-h-96 w-full rounded-lg object-contain shadow-lg transition-transform duration-500 hover:scale-105"
 									/>
 								))}
 							</div>

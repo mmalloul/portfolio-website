@@ -57,13 +57,15 @@ const { contactMethods, socialLinks } = contactEntry.data;
 			<div>
 				<h3 class="mb-4 text-xl font-semibold text-accent">Quick Links</h3>
 				<ul class="space-y-2">
-					{navigationItems.map((item) => (
-						<li>
-							<a href={item.href} class="transition-colors duration-300 hover:text-accent">
-								{item.name}
-							</a>
-						</li>
-					))}
+					{
+						navigationItems.map((item) => (
+							<li>
+								<a href={item.href} class="transition-colors duration-300 hover:text-accent">
+									{item.name}
+								</a>
+							</li>
+						))
+					}
 				</ul>
 			</div>
 		</div>

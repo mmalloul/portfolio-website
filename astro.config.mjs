@@ -6,5 +6,5 @@ import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [tailwind(), preact(), icon(), svelte()],
+	integrations: [tailwind(), preact(), icon(), svelte()]
 });
