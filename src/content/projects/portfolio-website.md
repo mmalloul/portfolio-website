@@ -12,7 +12,6 @@ technologies:
   - HTML
   - CSS
 github: 'https://github.com/mmalloul/portfolio-website'
-website: 'https://mmalloul.com'
 galleryImages:
   - '@lib/assets/images/portfolio/about.png'
   - '@lib/assets/images/portfolio/mobile-about.png'

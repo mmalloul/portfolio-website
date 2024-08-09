@@ -7,7 +7,7 @@ problemStatement: Manual code reviews are time-consuming and can be inconsistent
 solution: 'Developed GitLab Code Review Bot, an AI-powered bot that integrates with GitLab to automatically review merge requests, provide detailed feedback, and summarize code changes. This solution involved creating two separate projects: an LLM service running on FastAPI using LangChain, and the code review bot backend using Laravel.'
 features:
   - Fetches pending GitLab todos and identifies relevant merge requests
-  - Analyzes code changes using advanced language models
+  - Analyzes code changes using large language models
   - Generates detailed feedback on code quality, style, and potential issues
   - Posts discussions on merge requests with suggestions for improvement
   - Updates merge request descriptions with summaries of code changes
