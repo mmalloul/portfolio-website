@@ -44,23 +44,25 @@ const services: Service[] = [
 ];
 ---
 
-<section id="services" class="bg-container py-24 md:py-14">
+<section id="services" class="overflow-hidden bg-container py-24 md:py-14">
 	<div class="mx-auto w-full max-w-screen-lg p-4 md:p-6">
-		<h2 class="services-title mb-4 text-center text-4xl font-semibold text-accent">
+		<h2 class="services-title mb-12 text-center text-4xl font-bold text-accent">
 			{title}
 		</h2>
 		<p class="services-description mb-12 text-center text-lg text-text">
 			{description}
 		</p>
 
-		<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 			{
 				services.map((service: Service, index: number) => (
-					<div class="service-card flex flex-col items-center rounded-lg bg-bg p-6 text-center shadow-md transition-transform">
-						<div class="mb-4 text-5xl">{service.icon}</div>
-						<h3 class="mb-2 text-xl font-semibold text-accent">{service.title}</h3>
-						<p class="text-text">{service.description}</p>
-						<div class="card-overlay absolute inset-0 bg-black opacity-0" />
+					<div key={index} class="service-card overflow-hidden rounded-lg bg-bg shadow-lg">
+						<div class="card-content p-6">
+							<div class="mb-4 text-5xl">{service.icon}</div>
+							<h3 class="mb-2 text-xl font-semibold text-accent">{service.title}</h3>
+							<p class="text-text">{service.description}</p>
+						</div>
+						<div class="card-overlay absolute inset-0 bg-accent opacity-0" />
 					</div>
 				))
 			}
@@ -76,29 +78,33 @@ const services: Service[] = [
 	</div>
 </section>
 
+<style>
+	.service-card {
+		position: relative;
+		transform-style: preserve-3d;
+		transform: perspective(1000px);
+	}
+	.card-content {
+		position: relative;
+		z-index: 1;
+		backface-visibility: hidden;
+	}
+	.card-overlay {
+		transform: translateZ(-1px) scale(1.2);
+	}
+</style>
+
 <script>
 	import { animate, inView } from 'motion';
 
 	document.addEventListener('DOMContentLoaded', () => {
 		const servicesTitle = document.querySelector('.services-title') as HTMLElement;
-		const servicesDescription = document.querySelector('.services-description') as HTMLElement;
 		const serviceCards = document.querySelectorAll('.service-card') as NodeListOf<HTMLElement>;
-		const contactButton = document.querySelector('.contact-button') as HTMLElement;
 
 		if (servicesTitle) {
 			inView(servicesTitle, () => {
 				animate(
 					servicesTitle,
-					{ opacity: [0, 1], y: [-30, 0] },
-					{ duration: 0.3, easing: 'ease-out' }
-				);
-			});
-		}
-
-		if (servicesDescription) {
-			inView(servicesDescription, () => {
-				animate(
-					servicesDescription,
 					{ opacity: [0, 1], y: [-30, 0] },
 					{ duration: 0.3, easing: 'ease-out' }
 				);
@@ -114,16 +120,6 @@ const services: Service[] = [
 						{ duration: 0.3, delay: index * 0.2, easing: 'ease-out' }
 					);
 				});
-			});
-		}
-
-		if (contactButton) {
-			inView(contactButton, () => {
-				animate(
-					contactButton,
-					{ opacity: [0, 1], y: [30, 0] },
-					{ duration: 0.3, easing: 'ease-out', delay: 0.6 }
-				);
 			});
 		}
 
