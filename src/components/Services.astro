@@ -1,0 +1,146 @@
+---
+const title: string = 'How I Can Help';
+const description: string = `
+  I’m here to provide practical solutions that meet your needs. Whether it’s developing a custom application, creating smart AI systems, or making sense of your data, I’m ready to help you achieve your goals.
+`;
+
+interface Service {
+	title: string;
+	description: string;
+	icon: string;
+}
+
+const services: Service[] = [
+	{
+		title: 'AI Consultation',
+		description: `We can explore how AI can make your processes more efficient and effective.`,
+		icon: '💡'
+	},
+	{
+		title: 'Custom Websites',
+		description: `I build reliable websites and applications that work seamlessly from front to back.`,
+		icon: '🖥️'
+	},
+	{
+		title: 'Chatbot Development',
+		description: `I create chatbots that enhance customer interaction and provide support around the clock.`,
+		icon: '🤖'
+	},
+	{
+		title: 'Machine Learning Models',
+		description: `I develop models that help you make informed decisions based on data.`,
+		icon: '📊'
+	},
+	{
+		title: 'Data Analysis',
+		description: `I analyze your data to uncover insights and opportunities for growth.`,
+		icon: '📈'
+	},
+	{
+		title: 'Custom CMS Solutions',
+		description: `I build content management systems tailored to your specific needs.`,
+		icon: '📝'
+	}
+];
+---
+
+<section id="services" class="bg-container py-24 md:py-14">
+	<div class="mx-auto w-full max-w-screen-lg p-4 md:p-6">
+		<h2 class="services-title mb-4 text-center text-4xl font-semibold text-accent">
+			{title}
+		</h2>
+		<p class="services-description mb-12 text-center text-lg text-text">
+			{description}
+		</p>
+
+		<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				services.map((service: Service, index: number) => (
+					<div class="service-card flex flex-col items-center rounded-lg bg-bg p-6 text-center shadow-md transition-transform">
+						<div class="mb-4 text-5xl">{service.icon}</div>
+						<h3 class="mb-2 text-xl font-semibold text-accent">{service.title}</h3>
+						<p class="text-text">{service.description}</p>
+						<div class="card-overlay absolute inset-0 bg-black opacity-0" />
+					</div>
+				))
+			}
+		</div>
+
+		<div class="contact-button mt-12 text-center">
+			<a
+				href="/#contact"
+				class="rounded-full bg-accent px-8 py-3 text-lg font-semibold text-bg transition-colors duration-300 hover:bg-secondary">
+				Let’s Talk
+			</a>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { animate, inView } from 'motion';
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const servicesTitle = document.querySelector('.services-title') as HTMLElement;
+		const servicesDescription = document.querySelector('.services-description') as HTMLElement;
+		const serviceCards = document.querySelectorAll('.service-card') as NodeListOf<HTMLElement>;
+		const contactButton = document.querySelector('.contact-button') as HTMLElement;
+
+		if (servicesTitle) {
+			inView(servicesTitle, () => {
+				animate(
+					servicesTitle,
+					{ opacity: [0, 1], y: [-30, 0] },
+					{ duration: 0.3, easing: 'ease-out' }
+				);
+			});
+		}
+
+		if (servicesDescription) {
+			inView(servicesDescription, () => {
+				animate(
+					servicesDescription,
+					{ opacity: [0, 1], y: [-30, 0] },
+					{ duration: 0.3, easing: 'ease-out' }
+				);
+			});
+		}
+
+		if (serviceCards.length > 0) {
+			serviceCards.forEach((card, index) => {
+				inView(card, () => {
+					animate(
+						card,
+						{ opacity: [0, 1], y: [30, 0] },
+						{ duration: 0.3, delay: index * 0.2, easing: 'ease-out' }
+					);
+				});
+			});
+		}
+
+		if (contactButton) {
+			inView(contactButton, () => {
+				animate(
+					contactButton,
+					{ opacity: [0, 1], y: [30, 0] },
+					{ duration: 0.3, easing: 'ease-out', delay: 0.6 }
+				);
+			});
+		}
+
+		serviceCards.forEach((card) => {
+			const overlay = card.querySelector('.card-overlay') as HTMLElement;
+			card.addEventListener('mouseenter', () => {
+				animate(card, { scale: [1, 1.05] }, { duration: 0.3 });
+				if (overlay) {
+					animate(overlay, { opacity: [0, 0.2] }, { duration: 0.2 });
+				}
+			});
+			card.addEventListener('mouseleave', () => {
+				animate(card, { scale: [1.05, 1] }, { duration: 0.3 });
+				if (overlay) {
+					animate(overlay, { opacity: [0.2, 0] }, { duration: 0.2 });
+				}
+			});
+		});
+	});
+</script>
