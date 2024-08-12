@@ -6,9 +6,11 @@ const aboutEntry = await getEntry('about', 'me');
 const { Content } = await aboutEntry.render();
 ---
 
-<section id="about" class="overflow-hidden bg-gradient-to-b from-bg to-container py-24">
+<section id="about" class="overflow-hidden bg-gradient-to-b from-bg to-container py-24 md:py-14">
 	<div class="mx-auto w-full max-w-screen-xl p-4 md:p-6">
-		<h2 class="about-title mb-16 text-center text-5xl font-bold text-accent">About Me</h2>
+		<h2 class="about-title mb-16 text-center text-5xl font-bold text-accent">
+			{aboutEntry.data.title}
+		</h2>
 		<div class="about-card flex flex-col items-center justify-center gap-12 lg:flex-row">
 			<div class="image-container relative h-48 w-48 md:h-72 md:w-72">
 				<div class="absolute inset-0 rotate-12 transform rounded-full bg-accent opacity-20"></div>
