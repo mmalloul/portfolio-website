@@ -38,13 +38,9 @@ const backHref = Astro.url.pathname === '/projects' ? 'javascript:history.back()
 	title={`${project.data.title} - Mohammed Malloul - AI & Fullstack Developer`}
 	description={pageDescription}>
 	<section class="mx-auto mt-24 w-full max-w-screen-xl space-y-8 p-4 md:p-6">
-		<div class="mb-4 flex items-center justify-between">
-			<BackButton href={backHref} />
-		</div>
-
-		<ProjectImage image={project.data.image} title={project.data.title} class="project-image" />
-
 		<BreadCrumbs items={breadcrumbItems} />
+		
+		<ProjectImage image={project.data.image} title={project.data.title} class="project-image" />
 
 		<h1 class="section-title mb-6 text-3xl font-extrabold text-accent">
 			{project.data.title}
