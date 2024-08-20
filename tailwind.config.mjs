@@ -1,3 +1,5 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -12,7 +14,7 @@ module.exports = {
 				secondary: 'var(--color-secondary)'
 			},
 			fontFamily: {
-				sans: ['Poppins', 'sans-serif']
+				sans: ['Poppins', ...defaultTheme.fontFamily.sans]
 			}
 		}
 	},
