@@ -20,7 +20,10 @@ technologies:
   - Matplotlib
   - Seaborn
   - NLTK
-  - SVM, Random Forest, Logistic Regression, K-Means Clustering
+  - SVM
+  - Random Forest
+  - Logistic Regression
+  - K-Means Clustering
 github: 'https://github.com/mmalloul/Machine-Learning'
 galleryImages:
   - '@lib/assets/images/ml/spam-detection-roc.png'

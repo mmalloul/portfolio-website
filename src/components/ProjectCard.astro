@@ -19,14 +19,13 @@ const { title, description, image, slug } = Astro.props;
 			<p class="mb-4 text-text">{description}</p>
 			<a
 				href={`/projects/${slug}`}
-				class="inline-block rounded-full bg-accent px-4 py-2 font-bold text-bg transition-colors duration-300 hover:bg-secondary"
+				class="inline-block rounded-full bg-accent px-4 py-2 font-bold text-bg hover:bg-secondary"
 				aria-label={`Learn more about ${title}`}>
 				Learn More
 				<span class="sr-only"> about {title}</span>
 			</a>
 		</div>
 	</div>
-	<div class="card-overlay absolute inset-0 z-0 bg-accent opacity-0"></div>
 </div>
 
 <script>
@@ -37,7 +36,6 @@ const { title, description, image, slug } = Astro.props;
 		const title = card.querySelector('h3');
 		const description = card.querySelector('p');
 		const button = card.querySelector('a');
-		const overlay = card.querySelector('.card-overlay');
 
 		inView(card, () => {
 			animate(card, { rotateY: [-90, 0], opacity: [0, 1] }, { duration: 1, easing: 'ease-out' });
@@ -45,30 +43,27 @@ const { title, description, image, slug } = Astro.props;
 				animate(
 					image,
 					{ scale: [1.5, 1], opacity: [0, 1] },
-					{ duration: 0.5, delay: 0.3, easing: 'ease-out' }
+					{ duration: 0.3, delay: 0.2, easing: 'ease-out' }
 				);
 			}
 			if (title && description) {
 				animate(
 					title,
 					{ y: [50, 0], opacity: [0, 1] },
-					{ duration: 0.3, delay: 0.5, easing: 'ease-out' }
+					{ duration: 0.3, delay: 0.3, easing: 'ease-out' }
 				);
 				animate(
 					description,
 					{ y: [50, 0], opacity: [0, 1] },
-					{ duration: 0.3, delay: 0.6, easing: 'ease-out' }
+					{ duration: 0.3, delay: 0.5, easing: 'ease-out' }
 				);
 			}
 			if (button) {
 				animate(
 					button,
 					{ scale: [0, 1], opacity: [0, 1] },
-					{ duration: 0.3, delay: 0.7, easing: 'ease-out' }
+					{ duration: 0.3, delay: 0.8, easing: 'ease-out' }
 				);
-			}
-			if (overlay) {
-				animate(overlay, { opacity: [0, 0.1] }, { duration: 1, easing: 'ease-out' });
 			}
 		});
 	}
