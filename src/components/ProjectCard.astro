@@ -19,7 +19,8 @@ const { title, description, image, slug } = Astro.props;
 			<p class="mb-4 text-text">{description}</p>
 			<a
 				href={`/projects/${slug}`}
-				class="inline-block rounded-full bg-accent px-4 py-2 font-bold text-bg transition-colors duration-300 hover:bg-secondary">
+				class="inline-block rounded-full bg-accent px-4 py-2 font-bold text-bg transition-colors duration-300 hover:bg-secondary"
+				aria-label={`Learn more about ${title}`}>
 				Learn More
 			</a>
 		</div>
