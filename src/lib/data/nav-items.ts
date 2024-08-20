@@ -3,6 +3,6 @@ export const navigationItems = [
 	{ name: 'About', href: '/#about' },
 	{ name: 'Skills', href: '/#skills' },
 	{ name: 'Services', href: '/#services' },
-	{ name: 'Projects', href: '/#projects' },
+	{ name: 'Projects', href: '/projects' },
 	{ name: 'Contact', href: '/#contact' }
 ];

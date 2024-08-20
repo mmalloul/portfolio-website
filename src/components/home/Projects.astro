@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../ProjectCard.astro';
+
+const allProjects = await getCollection('projects');
+const topThreeProjects = allProjects.slice(0, 3);
+---
+
+<section id="projects" class="overflow-hidden bg-gradient-to-t from-bg to-container py-24 md:py-14">
+	<div class="mx-auto w-full max-w-screen-xl p-4 md:p-6">
+		<h2 class="mb-12 text-center text-4xl font-bold text-accent">Featured Projects</h2>
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+			{
+				topThreeProjects.map((project) => (
+					<ProjectCard
+						title={project.data.title}
+						description={project.data.description}
+						image={project.data.image}
+						slug={project.slug}
+					/>
+				))
+			}
+		</div>
+	</div>
+</section>
