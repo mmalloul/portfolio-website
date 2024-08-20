@@ -1,25 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
-
+import ProjectCard from '@components/ProjectCard.astro';
 const projects = await getCollection('projects');
 ---
 
 <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 	{
 		projects.map((project) => (
-			<li class="flex flex-col overflow-hidden rounded-lg bg-container shadow-md transition-all duration-300 hover:shadow-lg">
-				<Image src={project.data.image} alt={project.data.title} class="h-48 w-full object-cover" />
-				<div class="flex flex-grow flex-col p-4">
-					<h2 class="mb-2 text-xl font-semibold text-accent">{project.data.title}</h2>
-					<p class="mb-4 flex-grow text-text">{project.data.description}</p>
-					<a
-						href={`/projects/${project.slug}`}
-						class="self-start rounded-full bg-accent px-4 py-2 text-sm font-semibold text-bg transition-colors duration-300 hover:bg-secondary">
-						Learn More
-					</a>
-				</div>
-			</li>
+			<ProjectCard
+				title={project.data.title}
+				description={project.data.description}
+				image={project.data.image}
+				slug={project.slug}
+			/>
 		))
 	}
 </ul>
