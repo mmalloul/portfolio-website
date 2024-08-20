@@ -1,0 +1,32 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import BreadCrumbs from '@components/BreadCrumbs.astro';
+import BackButton from '@components/BackButton.astro';
+import ProjectsList from '@components/projects/ProjectList.astro';
+
+const pageTitle = 'My Projects - Mohammed Malloul';
+const pageDescription = 'Explore my complete portfolio of AI and Fullstack Development projects.';
+
+const allProjects = await getCollection('projects');
+
+const breadcrumbItems = [{ label: 'Projects', href: '' }];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+	<main class="mx-auto mt-24 w-full max-w-screen-xl space-y-8 p-4 md:p-6">
+		<div class="mb-4 flex items-center gap-4 md:hidden">
+			<BackButton href="/" />
+			<BreadCrumbs items={breadcrumbItems} />
+		</div>
+
+		<div class="mb-12 text-center">
+			<h1 class="mb-4 text-4xl font-bold text-accent md:text-5xl">My Projects</h1>
+			<p class="text-lg text-text">Discover my journey through AI and Fullstack Development</p>
+		</div>
+
+		<section>
+			<ProjectsList projects={allProjects} />
+		</section>
+	</main>
+</Layout>
