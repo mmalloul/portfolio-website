@@ -11,7 +11,7 @@ interface Props {
 const { title, description, image, slug } = Astro.props;
 ---
 
-<div class="project-card opacity-0 overflow-hidden rounded-lg bg-container shadow-lg">
+<div class="project-card overflow-hidden rounded-lg bg-container opacity-0 shadow-lg">
 	<div class="card-content relative z-10">
 		<Image src={image} alt={title} class="h-48 w-full object-cover" />
 		<div class="p-6">

@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import Layout from '@layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import BackButton from '@components/BackButton.astro';
 import BreadCrumbs from '@components/BreadCrumbs.astro';
 import ProjectImage from '@components/projectDetail/ProjectImage.astro';
 import Section from '@components/projectDetail/Section.astro';
@@ -39,7 +38,7 @@ const backHref = Astro.url.pathname === '/projects' ? 'javascript:history.back()
 	description={pageDescription}>
 	<section class="mx-auto mt-24 w-full max-w-screen-xl space-y-8 p-4 md:p-6">
 		<BreadCrumbs items={breadcrumbItems} />
-		
+
 		<ProjectImage image={project.data.image} title={project.data.title} class="project-image" />
 
 		<h1 class="section-title mb-6 text-3xl font-extrabold text-accent">
