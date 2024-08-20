@@ -6,12 +6,12 @@ image: '@lib/assets/images/portfolio/portfolio.png'
 problemStatement: I needed a simple way to show my skills and projects to potential clients and employers.
 solution: Created a responsive portfolio website using modern web technologies. It features sections for projects, skills, about me, and contact information to give a clear overview of my work.
 features:
-- Perfect Lighthouse Score
-- Component Based Design
-- Astro Content Collection
-- Responsive UI
-- Project Overview Page
-- Informative Index Page
+  - Perfect Lighthouse Score
+  - Component Based Design
+  - Astro Content Collection
+  - Responsive UI
+  - Project Overview Page
+  - Informative Index Page
 technologies:
   - Astro
   - Tailwind CSS

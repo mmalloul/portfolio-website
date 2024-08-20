@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import Layout from '@layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import BreadCrumbs from '@components/BreadCrumbs.astro';
@@ -29,8 +29,6 @@ const breadcrumbItems = [
 	{ label: 'Projects', href: '/projects' },
 	{ label: project.data.title, href: '' }
 ];
-
-const backHref = Astro.url.pathname === '/projects' ? 'javascript:history.back()' : '/';
 ---
 
 <Layout
@@ -84,9 +82,10 @@ const backHref = Astro.url.pathname === '/projects' ? 'javascript:history.back()
 						<Section title="Project Gallery" class="section-content">
 							<div class="grid auto-cols-auto gap-4">
 								{project.data.galleryImages.map((image) => (
-									<Image
+									<Picture
 										src={image}
 										alt="Gallery Image"
+										formats={['avif', 'webp']}
 										class="gallery-image h-auto max-h-96 w-full rounded-lg object-contain shadow-lg transition-transform duration-500 hover:scale-105"
 									/>
 								))}
