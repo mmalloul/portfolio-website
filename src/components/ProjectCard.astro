@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 
 interface Props {
 	title: string;
@@ -13,7 +13,7 @@ const { title, description, image, slug } = Astro.props;
 
 <div class="project-card overflow-hidden rounded-lg bg-container opacity-0 shadow-lg">
 	<div class="card-content relative z-10">
-		<Image src={image} alt={title} class="h-48 w-full object-cover" />
+		<Picture src={image} alt={title} formats={['avif', 'webp']} class="h-48 w-full object-cover" />
 		<div class="p-6">
 			<h3 class="mb-2 text-xl font-semibold text-accent">{title}</h3>
 			<p class="mb-4 text-text">{description}</p>

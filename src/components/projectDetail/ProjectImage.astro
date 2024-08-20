@@ -1,12 +1,13 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 const { image, title } = Astro.props;
 ---
 
 <div class="project-image relative mb-6">
-	<Image
+	<Picture
 		src={image}
 		alt={title}
+		formats={['avif', 'webp']}
 		class="In mb-4 h-72 w-full rounded-lg object-cover shadow-lg transition-transform duration-500 hover:scale-105"
 	/>
 	<div
