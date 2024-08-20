@@ -22,6 +22,7 @@ const { title, description, image, slug } = Astro.props;
 				class="inline-block rounded-full bg-accent px-4 py-2 font-bold text-bg transition-colors duration-300 hover:bg-secondary"
 				aria-label={`Learn more about ${title}`}>
 				Learn More
+				<span class="sr-only"> about {title}</span>
 			</a>
 		</div>
 	</div>
