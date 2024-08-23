@@ -9,9 +9,9 @@ contactMethods:
     link: tel:+31642975205
     description: Call me directly for inquiries or collaborations.
   - title: Email
-    value: mo@mmalloul.com
+    value: contact@mmalloul.com
     action: Email me
-    link: mailto:mo@mmalloul.com
+    link: mailto:contact@mmalloul.com
     description: Send me an email with your ideas or questions.
   - title: WhatsApp
     value: '31642975205'
