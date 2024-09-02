@@ -1,9 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
 import ProjectCard from '@components/ProjectCard.astro';
+import type { Project, ProjectsApiResponse } from '@lib/types/project';
 
-const allProjects = await getCollection('projects');
-const topThreeProjects = allProjects.slice(0, 3);
+const res = await fetch(`${import.meta.env.PUBLIC_CMS_API_URL}/projects?limit=3`);
+const projectsData: ProjectsApiResponse = await res.json();
+const topThreeProjects = projectsData.docs.slice(0, 3);
+const baseUrl: string = import.meta.env.PUBLIC_MEDIA_BASE_URL;
 ---
 
 <section id="projects" class="overflow-hidden bg-gradient-to-t from-bg to-container py-24 md:py-14">
@@ -11,12 +13,14 @@ const topThreeProjects = allProjects.slice(0, 3);
 		<h2 class="mb-12 text-center text-4xl font-bold text-accent">Featured Projects</h2>
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 			{
-				topThreeProjects.map((project) => (
+				topThreeProjects?.map((project) => (
 					<ProjectCard
-						title={project.data.title}
-						description={project.data.description}
-						image={project.data.image}
+						title={project.title}
+						description={project.description}
+						image={`${baseUrl}${project.image.url}`}
 						slug={project.slug}
+						width={project.image.width}
+						height={project.image.height}
 					/>
 				))
 			}
