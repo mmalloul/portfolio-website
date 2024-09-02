@@ -1,11 +1,11 @@
 ---
 import ProjectCard from '@components/ProjectCard.astro';
 import type { Project, ProjectsApiResponse } from '@lib/types/project';
+const baseUrl: string = import.meta.env.PUBLIC_MEDIA_BASE_URL;
 
-const res = await fetch(`${import.meta.env.PUBLIC_CMS_API_URL}/projects?limit=3`);
+const res = await fetch(`${baseUrl}/projects?limit=3`);
 const projectsData: ProjectsApiResponse = await res.json();
 const topThreeProjects: Project[] = projectsData.docs.slice(0, 3);
-const baseUrl: string = import.meta.env.PUBLIC_MEDIA_BASE_URL;
 ---
 
 <section id="projects" class="overflow-hidden bg-gradient-to-t from-bg to-container py-24 md:py-14">
@@ -17,7 +17,7 @@ const baseUrl: string = import.meta.env.PUBLIC_MEDIA_BASE_URL;
 					<ProjectCard
 						title={project.title}
 						description={project.description}
-						image={`${baseUrl}${project.image.url}`}
+						image={`${project.image.url}`}
 						slug={project.slug}
 						width={project.image.width}
 						height={project.image.height}
