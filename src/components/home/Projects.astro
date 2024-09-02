@@ -4,7 +4,7 @@ import type { Project, ProjectsApiResponse } from '@lib/types/project';
 
 const res = await fetch(`${import.meta.env.PUBLIC_CMS_API_URL}/projects?limit=3`);
 const projectsData: ProjectsApiResponse = await res.json();
-const topThreeProjects = projectsData.docs.slice(0, 3);
+const topThreeProjects: Project[] = projectsData.docs.slice(0, 3);
 const baseUrl: string = import.meta.env.PUBLIC_MEDIA_BASE_URL;
 ---
 
