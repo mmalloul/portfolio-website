@@ -1,5 +1,5 @@
 ---
-import { Picture } from 'astro:assets';
+import { Image } from 'astro:assets';
 import Layout from '@layouts/Layout.astro';
 import BreadCrumbs from '@components/BreadCrumbs.astro';
 import ProjectImage from '@components/projectDetail/ProjectImage.astro';
@@ -89,10 +89,9 @@ function getFullImageUrl(url: string): string {
 						<Section title="Project Gallery" class="section-content">
 							<div class="grid auto-cols-auto gap-4">
 								{project.galleryImages.map((item) => (
-									<Picture
+									<Image
 										src={getFullImageUrl(item.image.url)}
 										alt={item.image.alt || project.title}
-										formats={['avif', 'webp']}
 										height={item.image.height}
 										width={item.image.width}
 										class="gallery-image h-auto max-h-96 w-full rounded-lg object-contain shadow-lg transition-transform duration-500 hover:scale-105"
