@@ -9,6 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SITE_URL: ${{ vars.SITE_URL }}
+      PUBLIC_CMS_API_URL: ${{ vars.PUBLIC_CMS_API_URL }}
+      PUBLIC_MEDIA_BASE_URL: ${{ vars.PUBLIC_MEDIA_BASE_URL }}
+
     steps:
       - uses: actions/checkout@v3
 
