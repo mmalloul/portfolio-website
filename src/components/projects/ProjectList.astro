@@ -1,23 +1,28 @@
 ---
 import ProjectCard from '@components/ProjectCard.astro';
-import type { Project, ProjectsApiResponse } from '@lib/types/project';
+import { getAllProjects } from '@lib/services/projectService';
+import type { Project } from '@lib/types/project';
 
-const response = await fetch(`${import.meta.env.PUBLIC_CMS_API_URL}/projects`);
-const projectsData: ProjectsApiResponse = await response.json();
-const projects: Project[] = projectsData.docs;
+const projects: Project[] = await getAllProjects();
 ---
 
 <div class="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 	{
-		projects.map((project) => (
-			<ProjectCard
-				title={project.title}
-				description={project.description}
-				image={`${import.meta.env.PUBLIC_MEDIA_BASE_URL}${project.image.url}`}
-				slug={project.slug}
-				width={project.image.width}
-				height={project.image.height}
-			/>
-		))
+		projects.length > 0 ? (
+			projects.map((project) => (
+				<ProjectCard
+					title={project.title}
+					description={project.description}
+					image={project.image.url}
+					slug={project.slug}
+					width={project.image.width}
+					height={project.image.height}
+				/>
+			))
+		) : (
+			<p class="col-span-full text-center text-lg text-gray-600">
+				No projects available at the moment. Please check back later.
+			</p>
+		)
 	}
 </div>
