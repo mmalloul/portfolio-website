@@ -1,8 +1,41 @@
 ---
-import { getEntry } from 'astro:content';
+import { payloadApi } from '@lib/ts/api/PayloadAPI';
+import type { Contact, ContactMethod, SocialLink } from '@lib/ts/types/contact';
 
-const contactEntry = await getEntry('contact', 'contact');
-const { title, description, socialMediaTitle, contactMethods, socialLinks } = contactEntry.data;
+const contacts: Contact[] = await payloadApi.getAllContacts();
+const contact: Contact = contacts[0];
+const { email, phone, whatsapp, socials } = contact;
+
+const title = "Let's Connect";
+const description = `Ready to bring your ideas to life or explore how AI and fullstack development can transform your business? I'm excited to take on new challenges and create innovative solutions. Let's start a conversation!`;
+const socialMediaTitle = 'Socials';
+
+const contactMethods: ContactMethod[] = [
+	{
+		title: 'Phone',
+		value: phone,
+		link: `tel:${phone}`,
+		icon: 'fas fa-phone-alt',
+		description: 'Call me directly for inquiries or collaborations.',
+		action: 'Call me'
+	},
+	{
+		title: 'Email',
+		value: email,
+		link: `mailto:${email}`,
+		icon: 'fas fa-envelope',
+		description: 'Send me an email with your ideas or questions.',
+		action: 'Email me'
+	},
+	whatsapp && {
+		title: 'WhatsApp',
+		value: whatsapp,
+		link: `https://wa.me/${whatsapp}`,
+		icon: 'fab fa-whatsapp',
+		description: 'Chat with me on WhatsApp for quick responses.',
+		action: 'Message me'
+	}
+].filter(Boolean) as ContactMethod[];
 ---
 
 <section id="contact" class="py-24 md:py-14">
@@ -16,7 +49,7 @@ const { title, description, socialMediaTitle, contactMethods, socialLinks } = co
 
 		<div class="contact-methods mb-16 grid grid-cols-1 gap-8 md:grid-cols-3">
 			{
-				contactMethods.map((method) => (
+				contactMethods.map((method: ContactMethod) => (
 					<div class="contact-method flex flex-col justify-between rounded-lg bg-container p-6">
 						<div class="flex flex-col gap-4">
 							<h3 class="mb-2 text-2xl font-semibold text-accent">{method.title}</h3>
@@ -39,7 +72,7 @@ const { title, description, socialMediaTitle, contactMethods, socialLinks } = co
 			</h3>
 			<div class="flex justify-center gap-6">
 				{
-					socialLinks.map((link) => (
+					socials.map((link: SocialLink) => (
 						<a
 							href={link.url}
 							target="_blank"

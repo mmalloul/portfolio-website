@@ -5,11 +5,11 @@ import BreadCrumbs from '@components/BreadCrumbs.astro';
 import ProjectImage from '@components/projectDetail/ProjectImage.astro';
 import Section from '@components/projectDetail/Section.astro';
 import SideContainer from '@components/projectDetail/SideContainer.astro';
-import { getAllProjects } from '@lib/services/projectService';
-import type { Project } from '@lib/types/project';
+import { payloadApi } from '@lib/ts/api/PayloadAPI';
+import type { Project } from '@lib/ts/types/project';
 
 export async function getStaticPaths() {
-	const projects = await getAllProjects();
+	const projects = await payloadApi.getAllProjects();
 	return projects.map((project) => ({
 		params: { slug: project.slug },
 		props: { project }

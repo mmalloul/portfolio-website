@@ -2,8 +2,8 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-	readonly PUBLIC_CMS_API_URL: string;
-	readonly PUBLIC_MEDIA_BASE_URL: string;
+	readonly API_URL: string;
+	readonly BASE_API_URL: string;
 }
 
 interface ImportMeta {

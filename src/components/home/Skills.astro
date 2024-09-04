@@ -1,8 +1,10 @@
 ---
-import { getEntry } from 'astro:content';
+import { payloadApi } from '@lib/ts/api/PayloadAPI';
+import type { Skill } from '@lib/ts/types/skill';
 
-const skillsEntry = await getEntry('skills', 'skills-list');
-const { title, skills } = skillsEntry.data;
+const skills: Skill[] = await payloadApi.getAllSkills();
+
+const title = 'Skills';
 ---
 
 <section id="skills" class="overflow-hidden bg-container py-24 md:py-14">

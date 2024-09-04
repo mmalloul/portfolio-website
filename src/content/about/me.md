@@ -2,7 +2,7 @@
 title: About Me
 name: Mohammed Malloul
 role: AI & Fullstack Developer
-image: '@lib/assets/images/mo.jpg'
+image: '@lib/images/mo.jpg'
 ---
 
 Hi, I'm Mohammed! As the 'tech guru' in my family, I've always had a knack for technology. My real journey began when a friend introduced me to some fascinating Python projects. That moment sparked my decision to pursue a career in tech.
