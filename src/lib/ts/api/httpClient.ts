@@ -12,7 +12,7 @@ export class HttpClient {
 	async get<T>(path: string): Promise<T> {
 		const response = await fetch(`${this.apiUrl}${path}`);
 		if (!response.ok) {
-			throw new Error(`Failed to fetch: ${response.statusText}`);
+			throw new Error(`Failed to fetch with: ${this.apiUrl}${path}, error: ${response.statusText}`);
 		}
 		const data = await response.json();
 		return this.processImages(data.docs || data);
