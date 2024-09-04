@@ -12,7 +12,7 @@ jobs:
     env:
       SITE_URL: ${{ vars.SITE_URL }}
       API_URL: ${{ vars.API_URL }}
-      BASE_URL: ${{ vars.BASE_URL }}
+      BASE_API_URL: ${{ vars.BASE_API_URL }}
 
     steps:
       - uses: actions/checkout@v3

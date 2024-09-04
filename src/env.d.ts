@@ -3,7 +3,7 @@
 
 interface ImportMetaEnv {
 	readonly API_URL: string;
-	readonly BASE_URL: string;
+	readonly BASE_API_URL: string;
 }
 
 interface ImportMeta {

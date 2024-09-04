@@ -46,5 +46,5 @@ export class PayloadAPI {
 
 // Instantiate PayloadAPI
 const apiUrl: string = import.meta.env.API_URL;
-const mediaBaseUrl: string = import.meta.env.BASE_URL;
+const mediaBaseUrl: string = import.meta.env.BASE_API_URL;
 export const payloadApi = new PayloadAPI(new HttpClient(apiUrl, mediaBaseUrl));
