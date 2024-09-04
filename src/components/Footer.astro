@@ -1,8 +1,25 @@
 ---
-import { getEntry } from 'astro:content';
-import { navigationItems } from '@lib/data/nav-items';
-const contactEntry = await getEntry('contact', 'contact');
-const { contactMethods, socialLinks } = contactEntry.data;
+import { payloadApi } from '@lib/ts/api/PayloadAPI';
+import { navigationItems } from '@lib/ts/data/nav-items';
+import type { Contact, ContactMethod } from '@lib/ts/types/contact';
+
+const contact: Contact = await payloadApi.getContactById('66d84db6fb9ce7b86db789a6');
+
+const contactMethods: ContactMethod[] = [
+	{ title: 'Phone', value: contact.phone, link: `tel:${contact.phone}`, icon: 'fas fa-phone-alt' },
+	{
+		title: 'Email',
+		value: contact.email,
+		link: `mailto:${contact.email}`,
+		icon: 'fas fa-envelope'
+	},
+	contact.whatsapp && {
+		title: 'WhatsApp',
+		value: contact.whatsapp,
+		link: `https://wa.me/${contact.whatsapp}`,
+		icon: 'fab fa-whatsapp'
+	}
+].filter(Boolean) as ContactMethod[];
 ---
 
 <footer class="bg-container py-8 text-text">
@@ -18,15 +35,7 @@ const { contactMethods, socialLinks } = contactEntry.data;
 								<a
 									href={method.link}
 									class="flex items-center transition-colors duration-300 hover:text-accent">
-									{method.title === 'Phone' && (
-										<i class="fas fa-phone-alt mr-2" aria-hidden="true" />
-									)}
-									{method.title === 'Email' && (
-										<i class="fas fa-envelope mr-2" aria-hidden="true" />
-									)}
-									{method.title === 'WhatsApp' && (
-										<i class="fab fa-whatsapp mr-2" aria-hidden="true" />
-									)}
+									<i class={`${method.icon} mr-2`} aria-hidden="true" />
 									<span>{method.value}</span>
 								</a>
 							</li>
@@ -40,13 +49,13 @@ const { contactMethods, socialLinks } = contactEntry.data;
 				<h3 class="mb-4 text-xl font-semibold text-accent">Connect</h3>
 				<div class="flex space-x-4">
 					{
-						socialLinks.map((link) => (
+						contact.socials.map((link) => (
 							<a
 								href={link.url}
 								target="_blank"
 								aria-label={`Visit ${link.platform} profile`}
 								class="text-2xl transition-colors duration-300 hover:text-accent">
-								<i class={link.icon} aria-hidden="true" />
+								<i class={`fab fa-${link.platform.toLowerCase()}`} aria-hidden="true" />
 							</a>
 						))
 					}

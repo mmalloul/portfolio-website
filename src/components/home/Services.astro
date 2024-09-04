@@ -1,48 +1,13 @@
 ---
+import { payloadApi } from '@lib/ts/api/PayloadAPI';
+import type { Service } from '@lib/ts/types/service';
+
+const services: Service[] = await payloadApi.getAllServices();
+
 const title: string = 'How I Can Help';
 const description: string = `
   I’m here to provide practical solutions that meet your needs. Whether it’s developing a custom application, creating smart AI systems, or making sense of your data, I’m ready to help you achieve your goals.
 `;
-
-interface Service {
-	title: string;
-	description: string;
-	icon: string;
-}
-
-const services: Service[] = [
-	{
-		title: 'Custom Websites',
-		description: `I build reliable websites and applications that work seamlessly from front to back.`,
-		icon: '🖥️'
-	},
-
-	{
-		title: 'Content Management',
-		description: `I build content management systems for your website tailored to your specific needs.`,
-		icon: '📝'
-	},
-	{
-		title: 'Chatbot Development',
-		description: `I create chatbots that enhance customer interaction and provide support around the clock.`,
-		icon: '🤖'
-	},
-	{
-		title: 'AI Consultation',
-		description: `We can explore how AI can make your processes more efficient and effective.`,
-		icon: '💡'
-	},
-	{
-		title: 'Machine Learning',
-		description: `I develop models that help you make informed decisions based on data.`,
-		icon: '📊'
-	},
-	{
-		title: 'Data Analysis',
-		description: `I analyze your data to uncover insights and opportunities for growth.`,
-		icon: '📈'
-	}
-];
 ---
 
 <section id="services" class="overflow-hidden bg-container py-24 md:py-14">

@@ -1,9 +1,9 @@
 ---
 import ProjectCard from '@components/ProjectCard.astro';
-import { getTopProjects } from '@lib/services/projectService';
-import type { Project } from '@lib/types/project';
+import { payloadApi } from '@lib/ts/api/PayloadAPI';
+import type { Project } from '@lib/ts/types/project';
 
-const topThreeProjects: Project[] = await getTopProjects();
+const topThreeProjects: Project[] = await payloadApi.getFeaturedProjects();
 ---
 
 <section id="projects" class="overflow-hidden bg-gradient-to-t from-bg to-container py-24 md:py-14">
