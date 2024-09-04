@@ -3,7 +3,7 @@ import { payloadApi } from '@lib/ts/api/PayloadAPI';
 import type { Contact, ContactMethod, SocialLink } from '@lib/ts/types/contact';
 
 const contacts: Contact[] = await payloadApi.getAllContacts();
-const contact = contacts[0];
+const contact: Contact = contacts[0];
 const { email, phone, whatsapp, socials } = contact;
 
 const title = "Let's Connect";

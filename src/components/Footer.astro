@@ -3,7 +3,8 @@ import { payloadApi } from '@lib/ts/api/PayloadAPI';
 import { navigationItems } from '@lib/ts/data/nav-items';
 import type { Contact, ContactMethod } from '@lib/ts/types/contact';
 
-const contact: Contact = await payloadApi.getContactById('66d84db6fb9ce7b86db789a6');
+const contacts: Contact[] = await payloadApi.getAllContacts();
+const contact: Contact = contacts[0];
 
 const contactMethods: ContactMethod[] = [
 	{ title: 'Phone', value: contact.phone, link: `tel:${contact.phone}`, icon: 'fas fa-phone-alt' },
