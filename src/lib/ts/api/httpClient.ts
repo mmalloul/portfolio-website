@@ -39,6 +39,10 @@ export class HttpClient {
 	}
 
 	private processImage(url: string): string {
+		// Only add base URL if the URL doesn't already start with 'http' or the mediaBaseUrl
+		if (url.startsWith('http')) {
+			return url;
+		}
 		return `${this.mediaBaseUrl}${url}`;
 	}
 }
